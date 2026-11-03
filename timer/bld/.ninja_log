@@ -1,0 +1,7 @@
+# ninja log v7
+4	389	1793703890221929712	CMakeFiles/timer.dir/src/timer.cxx.o.ddi	ba9f7c89473f30fa
+390	401	1793703890618671492	CMakeFiles/timer.dir/CXX.dd	44ba43f9f271d0e4
+390	401	1793703890618671492	CMakeFiles/timer.dir/CXXModules.json	44ba43f9f271d0e4
+390	401	1793703890618671492	CMakeFiles/timer.dir/src/timer.cxx.o.modmap	44ba43f9f271d0e4
+401	11374	1793703890618937327	CMakeFiles/timer.dir/src/timer.cxx.o	1f7f1a454c8fe2b2
+11377	11499	1793703901596650830	timer	7b9efdec1f47e841

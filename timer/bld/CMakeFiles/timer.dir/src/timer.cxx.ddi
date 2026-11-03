@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/timer.dir/src/timer.cxx.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}

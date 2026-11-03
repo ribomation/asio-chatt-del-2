@@ -8,3 +8,4 @@ project(asio-chatt-del-2 LANGUAGES CXX)
 include(cmake/common.cmake)
 
 add_subdirectory(timer)
+add_subdirectory(echoserver)
