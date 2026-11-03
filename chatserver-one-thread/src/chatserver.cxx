@@ -53,20 +53,27 @@ using SessionPtr = std::shared_ptr<Session>;
 // Mängden av anslutna sessioner. Ingen mutex: alla anrop sker från handlers
 // som körs i en och samma tråd.
 class Room {
+    std::set<SessionPtr> sessions;
+
 public:
     void join(SessionPtr session) { sessions.insert(std::move(session)); }
     void leave(SessionPtr const& session) { sessions.erase(session); }
     void broadcast(std::string const& msg, SessionPtr const& from);  // definieras efter Session
     auto size() const -> std::size_t { return sessions.size(); }
-
-private:
-    std::set<SessionPtr> sessions;
 };
 
 // En ansluten klient. Äger sig själv via shared_from_this() så länge en
 // operation är utestående, precis som i echo-servern.
 class Session : public std::enable_shared_from_this<Session> {
     using super = std::enable_shared_from_this<Session>;
+
+    tcp::socket socket;
+    Room& room;
+    std::string name;
+    std::string read_buf;
+    std::deque<std::string> queue;        // väntar på att skrivas
+    std::optional<std::string> in_flight; // skrivs just nu, får inte röras
+    std::size_t dropped = 0;
 
 public:
     Session(tcp::socket sock, Room& room)
@@ -83,7 +90,7 @@ public:
     // Anropas av Room, inifrån någon annan sessions läs-handler. Lägger
     // meddelandet i kön och startar en skrivning om ingen pågår. Blockerar aldrig.
     void deliver(std::string msg) {
-        if (queue.size() >= max_queue) {
+        if (is_full()) {
             queue.pop_front();  // äldsta ej påbörjade. in_flight rörs inte.
             ++dropped;
         }
@@ -92,6 +99,8 @@ public:
     }
 
 private:
+    bool is_full() const { return queue.size() >= max_queue; }
+
     void do_read() {
         auto self = super::shared_from_this();
         asio::async_read_until(socket, asio::dynamic_buffer(read_buf), '\n',
@@ -140,14 +149,6 @@ private:
                      dropped ? std::format(", kastade {} meddelanden", dropped) : "");
         room.broadcast(std::format("*** {} kopplade ned\n", name), self);
     }
-
-    tcp::socket socket;
-    Room& room;
-    std::string name;
-    std::string read_buf;
-    std::deque<std::string> queue;        // väntar på att skrivas
-    std::optional<std::string> in_flight; // skrivs just nu, får inte röras
-    std::size_t dropped = 0;
 };
 
 void Room::broadcast(std::string const& msg, SessionPtr const& from) {
@@ -159,6 +160,9 @@ void Room::broadcast(std::string const& msg, SessionPtr const& from) {
 // Accept-loopen. Här räcker [this], eftersom Server är en lokal variabel i
 // main och lever tills run() returnerar.
 class Server {
+    tcp::acceptor acceptor;
+    Room room;
+
 public:
     Server(asio::io_context& ioc, unsigned short port)
         : acceptor{ioc, tcp::endpoint{tcp::v4(), port}} {
@@ -176,9 +180,6 @@ private:
             do_accept();
         });
     }
-
-    tcp::acceptor acceptor;
-    Room room;
 };
 
 int main(int argc, char** argv) try {

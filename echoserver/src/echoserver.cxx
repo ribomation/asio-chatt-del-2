@@ -29,6 +29,10 @@ auto to_string(tcp::endpoint const& ep) -> std::string {
 class Session : public std::enable_shared_from_this<Session> {
     using super = std::enable_shared_from_this<Session>;
 
+    tcp::socket socket;
+    std::string peer;
+    std::array<char, 1024> buf{};  // medlem, inte lokal: måste leva tills handlern körs
+
 public:
     explicit Session(tcp::socket sock)
         : socket{std::move(sock)}, peer{to_string(socket.remote_endpoint())} {}
@@ -62,10 +66,6 @@ private:
             self->do_read();
         });
     }
-
-    tcp::socket socket;
-    std::string peer;
-    std::array<char, 1024> buf{};  // medlem, inte lokal: måste leva tills handlern körs
 };
 
 // Accept-loopen: varje accepterad klient blir en Session, och sedan startas
