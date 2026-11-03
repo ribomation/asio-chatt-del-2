@@ -1,0 +1,7 @@
+# ninja log v7
+3	406	1793711356316165412	CMakeFiles/daytime-client.dir/src/daytime-client.cxx.o.ddi	4321aaa08f36b25a
+407	416	1793711356728982804	CMakeFiles/daytime-client.dir/CXX.dd	c077896c4c123a32
+407	416	1793711356728982804	CMakeFiles/daytime-client.dir/CXXModules.json	c077896c4c123a32
+407	416	1793711356728982804	CMakeFiles/daytime-client.dir/src/daytime-client.cxx.o.modmap	c077896c4c123a32
+416	13489	1793711356729173324	CMakeFiles/daytime-client.dir/src/daytime-client.cxx.o	8488211d37aa0ade
+13492	13622	1793711369806352451	daytime-client	d510fd0f48e9d152

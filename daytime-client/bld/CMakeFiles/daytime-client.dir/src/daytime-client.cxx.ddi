@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/daytime-client.dir/src/daytime-client.cxx.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
