@@ -1,0 +1,11 @@
+# Build output
+build/
+build-*/
+cmake-build-*/
+
+# IDE / desktop
+.idea/
+.vscode/
+.directory
+.cache/
+compile_commands.json
