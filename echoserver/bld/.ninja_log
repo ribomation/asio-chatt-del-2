@@ -1,0 +1,7 @@
+# ninja log v7
+3	385	1793705162373347327	CMakeFiles/echoserver.dir/src/echoserver.cxx.o.ddi	9b66c483ad79679c
+385	393	1793705162763324868	CMakeFiles/echoserver.dir/CXX.dd	46286171e12a3c44
+385	393	1793705162763324868	CMakeFiles/echoserver.dir/CXXModules.json	46286171e12a3c44
+385	393	1793705162763324868	CMakeFiles/echoserver.dir/src/echoserver.cxx.o.modmap	46286171e12a3c44
+393	14682	1793705162763354816	CMakeFiles/echoserver.dir/src/echoserver.cxx.o	7c2788f08f2842f0
+14688	14864	1793705177059455564	echoserver	7cba308a3b5c6b78

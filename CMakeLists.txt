@@ -9,3 +9,4 @@ include(cmake/common.cmake)
 
 add_subdirectory(timer)
 add_subdirectory(echoserver)
+add_subdirectory(daytime-client)

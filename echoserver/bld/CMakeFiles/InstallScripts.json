@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/jensr/GitHubProjects/asio-chatt-del-2/echoserver/bld/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

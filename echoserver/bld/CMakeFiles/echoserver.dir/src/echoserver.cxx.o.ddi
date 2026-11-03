@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/echoserver.dir/src/echoserver.cxx.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
